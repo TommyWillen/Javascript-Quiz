@@ -1,0 +1,52 @@
+header nav {
+    background-color: #22817d;
+    width: 100%;
+}
+
+h3 {
+    color: rgb(96, 128, 38);
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+button {
+    background-color: rgb(96, 128, 38);
+    color: rgb(243, 236, 222);
+    border-radius: 10%;
+    border-width: 0;
+    padding: 5px 10px 5px 10px;
+}
+
+.startBtn{
+    left: 50%;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.timer-text {
+    float: right;
+    color: #fff;
+    padding-top: 6px;
+    padding-right: 15px;
+}
+
+button:hover {
+    background-color: #333a40;
+    color: #fff;
+}
+
+main {
+    width: 100%;
+    background-color: rgb(211, 203, 187);
+    padding-bottom: 100%;
+}
+main section div {
+    background-color: rgb(243, 236, 222);
+}
+.section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
