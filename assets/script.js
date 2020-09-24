@@ -1,15 +1,47 @@
 // gamefield queries
 let gameField = document.querySelector("#game-field");
 let timerValue = document.querySelector("#timer-value");
-// initial state queries
+// initial state html elements
 const gameHead = document.createElement("h3");
 const gameDirections = document.createElement("p");
 const gameButton = document.createElement("button");
 let timerText = document.createElement("span");
-// game end queries
-const gameEndTitle = document.createElement("h3");
-gameEndTitle.textContent = "Game Over!";
 
+// game questions html elements
+let questionText = document.createElement("h3");
+let questionOptionList = document.createElement("ul");
+let optionALi = document.createElement("li");
+let optionBLi = document.createElement("li");
+let optionCLi = document.createElement("li");
+let optionDLi = document.createElement("li");
+let optionA = document.createElement("button");
+let optionB = document.createElement("button");
+let optionC = document.createElement("button");
+let optionD = document.createElement("button");
+
+// game end html elements
+const gameEndTitle = document.createElement("h3");
+const scoreReport = document.createElement("p");
+const initialsForm = document.createElement("form");
+const initialsFormDivRow = document.createElement("div");
+const initialsFormDivCol1 = document.createElement("div");
+const initialsInput = document.createElement("input");
+const initialsFormDivCol2 = document.createElement("div");
+const initialsBtn = document.createElement("button");
+
+// game end state
+let finalScore = 0;
+scoreReport.textContent = "You scored " + finalScore + " points!";
+gameEndTitle.textContent = "All Done!";
+initialsFormDivRow.setAttribute("class", "form-row align-items-center justify-content-center");
+initialsFormDivCol1.setAttribute("class", "col-auto");
+initialsFormDivCol2.setAttribute("class", "col-auto");
+initialsInput.setAttribute("class", "form-control mb-2");
+initialsInput.setAttribute("type", "text");
+initialsInput.setAttribute("id", "inlineFormInput");
+initialsInput.setAttribute("placeholder", "Enter Initials Here");
+initialsBtn.setAttribute("type", "submit");
+initialsBtn.textContent = "Submit";
 
 
 const gameLeaderBoardTitle = document.createElement("h4");
@@ -29,31 +61,22 @@ gameField.appendChild(gameButton);
 
 // script for the initial timer state
 let timerTime = 0;
-console.log(gameEnd);
 timerText.setAttribute("class", "timer-text");
 timerValue.appendChild(timerText);
 timerText.textContent = timerTime + " seconds left";
 
+// used for both the gamequestions and gametimer functions
 let gameEnd = false;
 
-gameField.addEventListener("click", function(event){
-    var element = event.target;
+gameButton.addEventListener("click", function(event){
+    // var element = event.target;
   
-    if (element.matches("button") === true) {
-      gameFieldClear();
-    }
+    // if (element.matches("button") === true) {
+      gameQuestions();
+    // }
   });
 
-  function gameFieldClear(){
-    while (gameField.hasChildNodes()) {  
-        gameField.removeChild(gameField.firstChild);
-      }
-    //   if (gameEnd === true) {
-    //       gameEndScreen();
-    //   } else {
-      gameQuestions();
-    //   }
-  }
+ 
 
   function gameTimer() {
     timerTime = 10;
@@ -70,15 +93,43 @@ gameField.addEventListener("click", function(event){
   }
 
   function gameEndScreen() {
-    
+    while (gameField.hasChildNodes()) {  
+        gameField.removeChild(gameField.firstChild);
+      }
     gameField.appendChild(gameEndTitle);
+    gameField.appendChild(scoreReport);
+    gameField.appendChild(initialsForm);
+    initialsForm.appendChild(initialsFormDivRow);
+    initialsFormDivRow.appendChild(initialsFormDivCol1);
+    initialsFormDivCol1.appendChild(initialsInput);
+    initialsFormDivRow.appendChild(initialsFormDivCol2);
+    initialsFormDivCol2.appendChild(initialsBtn);
   }
 
   function gameQuestions() {
-// start timer
+    while (gameField.hasChildNodes()) {  
+        gameField.removeChild(gameField.firstChild);
+      }
+
+    // start timer
     gameTimer();
 // create a loop for each question that changes the state
+gameField.appendChild(questionText);
+gameField.appendChild(questionOptionList);
+questionOptionList.appendChild(optionALi);
+questionOptionList.appendChild(optionBLi);
+questionOptionList.appendChild(optionCLi);
+questionOptionList.appendChild(optionDLi);
+optionALi.appendChild(optionA);
+optionBLi.appendChild(optionB);
+optionCLi.appendChild(optionC);
+optionDLi.appendChild(optionD);
 
+questionText.textContent = myQuestions[0].question;
+optionA.textContent = myQuestions[0].answers.a;
+optionB.textContent = myQuestions[0].answers.b;
+optionC.textContent = myQuestions[0].answers.c;
+optionD.textContent = myQuestions[0].answers.d;
 for (let i = 0; i < myQuestions.length; i++) {
 
 }
@@ -86,14 +137,14 @@ for (let i = 0; i < myQuestions.length; i++) {
 
   const myQuestions = [
     {
-      question: "question1",
+      question: "question1 what is your answer?",
       answers: {
-        a: "",
-        b: "",
-        c: "",
-        d: "",
+        a: "answer is not a",
+        b: "answer is totally not b",
+        c: "answer is obviously c",
+        d: "answer is not d clearly",
       },
-      correctAnswer: ""
+      correctAnswer: "c"
     },
     {
       question: "question2",
