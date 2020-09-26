@@ -2,20 +2,10 @@
 let gameField = document.querySelector("#game-field");
 let timerValue = document.querySelector("#timer-value");
 // initial state html elements
-const gameHead = document.createElement("h3");
-const gameDirections = document.createElement("p");
-const gameButton = document.createElement("button");
+const gameButton = document.querySelector(".startBtn")
 let timerText = document.createElement("span");
 
-// script for the initial state for the game.
-gameHead.textContent = "Welcome to Tommy Willen's JavaScript Quiz";
-gameDirections.textContent =
-  "Once you press start the timer will begin. You will have 75 seconds to answer as many questions as you can. Every correct answer will add 5 points to your score, while every wrong answer will deduct 10 seconds from the timer. The games ends once either you finish all questions or the timer runs out. Your score will be based on the number of correct answers and how long it took you to finish. You score will be added to the high scores page. You can play multiple times to try and beat your top score!. Good Luck!";
-gameButton.textContent = "Start!";
-gameButton.setAttribute("class", "startBtn");
-gameField.appendChild(gameHead);
-gameField.appendChild(gameDirections);
-gameField.appendChild(gameButton);
+// initial score state
 let totalScore = 0;
 
 // used for both the gamequestions and gametimer functions
@@ -122,7 +112,7 @@ initialsFormDivCol1.setAttribute("class", "col-auto");
 initialsFormDivCol2.setAttribute("class", "col-auto");
 initialsInput.setAttribute("class", "form-control mb-2");
 initialsInput.setAttribute("type", "text");
-initialsInput.setAttribute("id", "inlineFormInput");
+initialsInput.setAttribute("id", "initialsFormInput");
 initialsInput.setAttribute("placeholder", "Enter Initials Here");
 initialsBtn.setAttribute("type", "submit");
 initialsBtn.textContent = "Submit";
@@ -145,12 +135,66 @@ function gameEndScreen() {
   initialsFormDivRow.appendChild(initialsFormDivCol2);
   initialsFormDivCol2.appendChild(initialsBtn);
   scoreReport.textContent = "You scored " + totalScore + " points!";
+  localStorage.setItem("savedTotalScore", totalScore);
 }
 
-// HighScore stuff I will probably remove this
-const gameLeaderBoardTitle = document.createElement("h4");
-gameLeaderBoardTitle.textContent = "High Scores";
-const HighscoreList = document.createElement("ol");
+let highScoreList = document.querySelector("#highscore-list")
+let highScoreListArrs = [];
+
+function renderHighscores() {
+  // clear highscore element
+  highScoreList.innerHTML = "";
+ 
+  // render new li for each stored highscore
+  for (let i = 0; i < highScoreListArrslength; i++) {
+    var highScoreListArr = highScoreListArrs[i];
+    
+    var highscoreLi = document.createElement("li");
+    highscoreLi.textContent = highScoreListArr;
+    highscoreLi.setAttribute("score-index", highScoreListArrs.highScore.value)
+
+    highScoreList.appendChild(highscoreLi);
+  }
+}
+
+function initHighscores() {
+  var storedHighScores = JSON.parse(localStorage.getItem("userscore"));
+
+  if (storedHighScores !== null) {
+    highScoreListArrs = storedHighScores;
+  }
+
+  renderHighscores();
+}
+// eventlistner for the initialsForm
+initialsBtn.addEventListener("click", function(event){
+  event.preventDefault();
+  
+  // variable for the user initials/score submission
+  let userHighscore = {}
+  userHighscore.initials = initialsInput.value
+  userHighscore.score = JSON.parse(localStorage.getItem("savedTotalScore"));
+  console.log(userHighscore);
+  // userHighscore.initials = savedUserInitials;
+
+// validate initials entered
+// if (userHighscore.initials === "" /*|| userHighscore.initials.length <= 1 || userHighscore >= 4*/) {
+//   alert("You must enter initials between 2-4 characters")
+//   return;
+// }
+
+highScoreListArrs.push(userHighscore);
+initialsInput.value = "";
+console.log(highScoreListArrs);
+storeHighScores();
+})
+
+function storeHighScores() {
+  localStorage.setItem("Highscores", JSON.stringify(highScoreListArrs));
+}
+
+
+
 
 
 
@@ -187,6 +231,8 @@ optionA.addEventListener("click", function () {
       console.log(true);
       i++;
       correctScore++;
+      correctnessBool = true;
+      correctNotification();
       gameQuestions();
     } else {
       console.log(myQuestions[i].correctAnswer);
@@ -194,6 +240,8 @@ optionA.addEventListener("click", function () {
       console.log(false);
       i++;
       timerTime -= 10;
+      correctnessBool = false;
+      correctNotification();
       gameQuestions();
     }
   }
@@ -207,6 +255,8 @@ optionB.addEventListener("click", function () {
       console.log(true);
       i++;
       correctScore++;
+      correctnessBool = true;
+      correctNotification();
       gameQuestions();
     } else {
       console.log(myQuestions[i].correctAnswer);
@@ -214,10 +264,13 @@ optionB.addEventListener("click", function () {
       console.log(false);
       i++;
       timerTime -= 10;
+      correctnessBool = false
+      correctNotification();
       gameQuestions();
     }
   }
 });
+
 optionC.addEventListener("click", function () {
   if (i < myQuestions.length) {
     if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
@@ -226,6 +279,8 @@ optionC.addEventListener("click", function () {
       console.log(true);
       i++;
       correctScore++;
+      correctnessBool = true;
+      correctNotification();
       gameQuestions();
     } else {
       console.log(myQuestions[i].correctAnswer);
@@ -233,10 +288,13 @@ optionC.addEventListener("click", function () {
       console.log(false);
       i++;
       timerTime -= 10;
+      correctnessBool = false;
+      correctNotification();
       gameQuestions();
     }
   }
 });
+
 optionD.addEventListener("click", function () {
   if (i < myQuestions.length) {
     if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
@@ -245,6 +303,8 @@ optionD.addEventListener("click", function () {
       console.log(true);
       i++;
       correctScore++;
+      correctnessBool = true;
+      correctNotification();
       gameQuestions();
     } else {
       console.log(myQuestions[i].correctAnswer);
@@ -252,6 +312,8 @@ optionD.addEventListener("click", function () {
       console.log(false);
       i++;
       timerTime -= 10;
+      correctnessBool = false;
+      correctNotification();
       gameQuestions();
     }
   }
@@ -310,7 +372,26 @@ const myQuestions = [
   },
 ];
 
+let correctnessBool = false;
+let correctnessEl = document.querySelector("#correctness");
+let correctnessText = document.querySelector("#correctness-text");
 
-
-// correct notification function
-function correctNotification() {}
+// correct and incorrect notification function
+function correctNotification() {
+  correctnessEl.setAttribute("style", "display: inline-block")
+  if (correctnessBool === true) {
+    correctnessText.textContent = "Correct!"
+  } else {
+  correctnessText.textContent = "Incorrect!"
+}
+  correctnessInterval = setInterval(function () {
+    let correctnessTime = 1;
+    correctnessTime--;
+    if (correctnessTime === 0) {
+      clearInterval(correctnessInterval);
+      correctnessEl.setAttribute("style", "display: none");
+      correctnessText.textContent = "";
+      correctnessBool === false;
+    }
+  }, 1000);
+}

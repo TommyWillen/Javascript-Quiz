@@ -40,7 +40,7 @@ ul {
 
 button:hover {
     background-color: #333a40;
-    color: #fff;
+    color: rgb(243, 236, 222);
 }
 
 main {
@@ -54,4 +54,18 @@ main section div {
 .section {
     padding-top: 60px;
     margin-top: -60px;
+}
+
+.button-like {
+    background-color: rgb(96, 128, 38);
+    color: rgb(243, 236, 222);
+    border-radius: 10%;
+    border-width: 0;
+    padding: 5px 10px 5px 10px;
+    margin-bottom: 10px;
+}
+
+.button-like:hover {
+    color: rgb(243, 236, 222);
+    background-color: #333a40;
 }
