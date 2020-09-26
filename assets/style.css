@@ -69,3 +69,8 @@ main section div {
     color: rgb(243, 236, 222);
     background-color: #333a40;
 }
+
+ol {
+    color: rgb(96, 128, 38);
+    font-weight: bold;
+}

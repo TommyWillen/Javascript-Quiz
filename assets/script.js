@@ -120,7 +120,7 @@ initialsBtn.textContent = "Submit";
 // This function changes the screen to the end game state
 function gameEndScreen() {
   clearInterval(timerInterval);
-  let totalScore = correctScore * 5 + timerTime;
+  totalScore = correctScore * 5 + timerTime;
   console.log(correctScore);
   console.log(totalScore);
   console.log(timerTime);
@@ -135,37 +135,22 @@ function gameEndScreen() {
   initialsFormDivRow.appendChild(initialsFormDivCol2);
   initialsFormDivCol2.appendChild(initialsBtn);
   scoreReport.textContent = "You scored " + totalScore + " points!";
-  localStorage.setItem("savedTotalScore", totalScore);
+  if (highScoreListArrs !== null) {
+    localStorage.getItem("Highscores");
+  }
+  // localStorage.setItem("savedTotalScore", totalScore);
 }
 
 let highScoreList = document.querySelector("#highscore-list")
-let highScoreListArrs = [];
+var highScoreListArrs = [];
+// let storedHighScores = JSON.parse(localStorage.getItem("Highscores"));
+// highScoreListArrs.push(storedHighScores);
+// if (storedHighScores !== undefined || storedHighScores !== null) {
+//   highScoreListArrs.push(storedHighScores);
+// } else {
+//   highScoreListArrs = [];
+// }
 
-function renderHighscores() {
-  // clear highscore element
-  highScoreList.innerHTML = "";
- 
-  // render new li for each stored highscore
-  for (let i = 0; i < highScoreListArrslength; i++) {
-    var highScoreListArr = highScoreListArrs[i];
-    
-    var highscoreLi = document.createElement("li");
-    highscoreLi.textContent = highScoreListArr;
-    highscoreLi.setAttribute("score-index", highScoreListArrs.highScore.value)
-
-    highScoreList.appendChild(highscoreLi);
-  }
-}
-
-function initHighscores() {
-  var storedHighScores = JSON.parse(localStorage.getItem("userscore"));
-
-  if (storedHighScores !== null) {
-    highScoreListArrs = storedHighScores;
-  }
-
-  renderHighscores();
-}
 // eventlistner for the initialsForm
 initialsBtn.addEventListener("click", function(event){
   event.preventDefault();
@@ -173,8 +158,9 @@ initialsBtn.addEventListener("click", function(event){
   // variable for the user initials/score submission
   let userHighscore = {}
   userHighscore.initials = initialsInput.value
-  userHighscore.score = JSON.parse(localStorage.getItem("savedTotalScore"));
-  console.log(userHighscore);
+  userHighscore.score = totalScore
+  // console.log(userHighscore);
+  // console.log(totalScore);
   // userHighscore.initials = savedUserInitials;
 
 // validate initials entered
@@ -182,21 +168,30 @@ initialsBtn.addEventListener("click", function(event){
 //   alert("You must enter initials between 2-4 characters")
 //   return;
 // }
+var storedHighScores = JSON.parse(localStorage.getItem("Highscores"));
+console.log("storedHighScores is " + storedHighScores);
+// highScoreListArrs = storedHighScores;
+// highScoreListArrs.push(userHighscore);
+if (!storedHighScores) {
+  console.log(userHighscore);
+  console.log(highScoreListArrs);
+  highScoreListArrs.push(userHighscore);
+  localStorage.setItem("Highscores", JSON.stringify(highScoreListArrs));
+} else {
+console.log(storedHighScores);
+  storedHighScores.push(userHighscore);
 
-highScoreListArrs.push(userHighscore);
+localStorage.setItem("Highscores", JSON.stringify(storedHighScores));
 initialsInput.value = "";
-console.log(highScoreListArrs);
-storeHighScores();
+// console.log(highScoreListArrs);
+// storeHighScores();
+}
+// window.location.href = "./highscore.html"
 })
 
 function storeHighScores() {
   localStorage.setItem("Highscores", JSON.stringify(highScoreListArrs));
 }
-
-
-
-
-
 
 // questionOptionList.addEventListener("click", answerHandler)
 
