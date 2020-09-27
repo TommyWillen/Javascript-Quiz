@@ -83,11 +83,13 @@ function gameTimer() {
   gameQuestions();
   timerInterval = setInterval(function () {
     timerTime--;
-    // if statement for if user cannot answer the questions in the required amount of time
-    if (timerTime === 0) {
+    // if statement for if user cannot answer the questions in the required amount of time set it to <= so that it will stop game if user make a wrong answer at < 10 seconds
+    if (timerTime <= 0) {
       clearInterval(timerInterval);
+      // gameEndScreen function call to display final score and ask for initials
       gameEndScreen();
     }
+    // display for the top right of the screen
     timerText.textContent = timerTime + " seconds left";
   }, 1000);
 }
@@ -122,12 +124,14 @@ let answerArr = document.querySelectorAll(".option-btn");
 
 // this is the function the creates the game elements and modifies them based on event listners attached to the created buttons
 function gameQuestions() {
+  // clear the game-field container to add fresh html elements
   clearGameField();
 
   // if conditional either stops the game or adds the next question in the list.
   if (i === myQuestions.length) {
     gameEndScreen();
   } else {
+    // add new elements to the page
     gameField.appendChild(questionText);
     gameField.appendChild(questionOptionList);
     questionOptionList.appendChild(optionALi);
@@ -138,7 +142,7 @@ function gameQuestions() {
     optionBLi.appendChild(optionB);
     optionCLi.appendChild(optionC);
     optionDLi.appendChild(optionD);
-
+// text added is based on the const created above to display the questions the buttons will be handled by the event listeners below
     questionText.textContent = myQuestions[i].question;
     optionA.textContent = myQuestions[i].answers.a;
     optionB.textContent = myQuestions[i].answers.b;
@@ -174,12 +178,14 @@ initialsBtn.textContent = "Submit";
 
 // This function changes the screen to the end game state
 function gameEndScreen() {
+  // stops the timer to create a static total score
   clearInterval(timerInterval);
+  // awards user with points based on #correct and time left it is possible to get negatives if the user really sucks and this.
   totalScore = correctScore * 5 + timerTime;
   console.log(correctScore);
   console.log(totalScore);
   console.log(timerTime);
-
+// clears the game-field container to start fresh
   clearGameField();
   gameField.appendChild(gameEndTitle);
   gameField.appendChild(scoreReport);
@@ -189,47 +195,29 @@ function gameEndScreen() {
   initialsFormDivCol1.appendChild(initialsInput);
   initialsFormDivRow.appendChild(initialsFormDivCol2);
   initialsFormDivCol2.appendChild(initialsBtn);
+  // displays high score
   scoreReport.textContent = "You scored " + totalScore + " points!";
-  if (highScoreListArrs !== null) {
-    localStorage.getItem("Highscores");
-  }
-  // localStorage.setItem("savedTotalScore", totalScore);
 }
 
-let highScoreList = document.querySelector("#highscore-list")
-var highScoreListArrs = [];
-// let storedHighScores = JSON.parse(localStorage.getItem("Highscores"));
-// highScoreListArrs.push(storedHighScores);
-// if (storedHighScores !== undefined || storedHighScores !== null) {
-//   highScoreListArrs.push(storedHighScores);
-// } else {
-//   highScoreListArrs = [];
-// }
+// variable to store highscores & initials in an array of objects
+let highScoreListArrs = [];
 
-// eventlistner for the initialsForm
+
+// eventlistner for the initialsForm and storage of initials and score to local storage
 initialsBtn.addEventListener("click", function(event){
   event.preventDefault();
   
-  // variable for the user initials/score submission
+  // object for the user initials/score submission
   let userHighscore = {}
   userHighscore.initials = initialsInput.value
   userHighscore.score = totalScore
-  // console.log(userHighscore);
-  // console.log(totalScore);
-  // userHighscore.initials = savedUserInitials;
 
-// validate initials entered
-// if (userHighscore.initials === "" /*|| userHighscore.initials.length <= 1 || userHighscore >= 4*/) {
-//   alert("You must enter initials between 2-4 characters")
-//   return;
-// }
-var storedHighScores = JSON.parse(localStorage.getItem("Highscores"));
-console.log("storedHighScores is " + storedHighScores);
-// highScoreListArrs = storedHighScores;
-// highScoreListArrs.push(userHighscore);
+// pulling highscore stored in localstorage (if any)
+let storedHighScores = JSON.parse(localStorage.getItem("Highscores"));
+
+// conditional to set local storage if there are no stored high scores
 if (!storedHighScores) {
-  console.log(userHighscore);
-  console.log(highScoreListArrs);
+
   highScoreListArrs.push(userHighscore);
   localStorage.setItem("Highscores", JSON.stringify(highScoreListArrs));
 } else {
@@ -238,15 +226,12 @@ console.log(storedHighScores);
 
 localStorage.setItem("Highscores", JSON.stringify(storedHighScores));
 initialsInput.value = "";
-// console.log(highScoreListArrs);
-// storeHighScores();
+
 }
+// turns button into link to highscore page
 window.location.href = "./highscore.html"
 })
 
-function storeHighScores() {
-  localStorage.setItem("Highscores", JSON.stringify(highScoreListArrs));
-}
 
 // answerArr.addEventListener("click", answerHandler)
 
@@ -273,32 +258,41 @@ function storeHighScores() {
 //   }
 // }
 
+// event handlers for the different buttons for the questions. will try to compress this into one handler if I can figure out how.
 optionA.addEventListener("click", function () {
-  if (i < myQuestions.length) {
-    if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(true);
+    // checks to see if the attribute value is the same and the correct answer. Used to check if the answer is correct 
+  if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
+      // console.log(myQuestions[i].correctAnswer);
+      // console.log(this.getAttribute("option-answer"));
+      // console.log(true);
+      // adds on to the i variable so that the questions will move to the next question
       i++;
+      // gives a point for correct answer
       correctScore++;
+      // used for the correctNotification function to display correct
       correctnessBool = true;
+      // runs correct notification
       correctNotification();
+      // runs next question (or endscreen if no more questions)
       gameQuestions();
     } else {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(false);
+      // console.log(myQuestions[i].correctAnswer);
+      // console.log(this.getAttribute("option-answer"));
+      // console.log(false);
+      // moves to next question
       i++;
+      // removes 10 seconds from timmer as penalty
       timerTime -= 10;
+      // used for correctNotification function to display incorrect
       correctnessBool = false;
+      // runs incorrect notification
       correctNotification();
+      // runs next question (or endscreen if no more questions)
       gameQuestions();
     }
-  }
 });
-
+// same as option a. again I will try to clean this up later.
 optionB.addEventListener("click", function () {
-  if (i < myQuestions.length) {
     if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
       console.log(myQuestions[i].correctAnswer);
       console.log(this.getAttribute("option-answer"));
@@ -318,11 +312,9 @@ optionB.addEventListener("click", function () {
       correctNotification();
       gameQuestions();
     }
-  }
 });
-
+// same as option a. again I will try to clean this up later.
 optionC.addEventListener("click", function () {
-  if (i < myQuestions.length) {
     if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
       console.log(myQuestions[i].correctAnswer);
       console.log(this.getAttribute("option-answer"));
@@ -342,11 +334,9 @@ optionC.addEventListener("click", function () {
       correctNotification();
       gameQuestions();
     }
-  }
 });
-
+// same as option a. again I will try to clean this up later.
 optionD.addEventListener("click", function () {
-  if (i < myQuestions.length) {
     if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
       console.log(myQuestions[i].correctAnswer);
       console.log(this.getAttribute("option-answer"));
@@ -366,30 +356,37 @@ optionD.addEventListener("click", function () {
       correctNotification();
       gameQuestions();
     }
-  }
 });
 
 
-
+// sets initial state of the correct notification to default as incorrect
 let correctnessBool = false;
+// queries elements for the notification
 let correctnessEl = document.querySelector("#correctness");
 let correctnessText = document.querySelector("#correctness-text");
 
 // correct and incorrect notification function
 function correctNotification() {
+  // changes the display from hidden to showing
   correctnessEl.setAttribute("style", "display: inline-block")
+  // if statement to display correct or incorrect depending no answer
   if (correctnessBool === true) {
     correctnessText.textContent = "Correct!"
   } else {
   correctnessText.textContent = "Incorrect!"
 }
+// interval used to display the notification for only one second before hiding it again.
   correctnessInterval = setInterval(function () {
+    // sets the notification to display for only 1 second
     let correctnessTime = 1;
     correctnessTime--;
     if (correctnessTime === 0) {
+      // clears the interval to ready for the next call of the function
       clearInterval(correctnessInterval);
+      // sets the display to none to hide the notification in preparation for the next call
       correctnessEl.setAttribute("style", "display: none");
       correctnessText.textContent = "";
+      // resets boolean for next question
       correctnessBool === false;
     }
   }, 1000);
