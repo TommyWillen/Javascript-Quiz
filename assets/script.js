@@ -186,7 +186,7 @@ initialsInput.value = "";
 // console.log(highScoreListArrs);
 // storeHighScores();
 }
-// window.location.href = "./highscore.html"
+window.location.href = "./highscore.html"
 })
 
 function storeHighScores() {
