@@ -1,11 +1,64 @@
-// gamefield queries
+// Here are the five questions I created in an object what will be used in the quiz
+const myQuestions = [
+  {
+    question: "What is the result of the following equation: a = 8 + '8'",
+    answers: {
+      a: "16",
+      b: "null",
+      c: "88",
+      d: "undefined",
+    },
+    correctAnswer: "optionC",
+  },
+  {
+    question: "Which of the following is an object?",
+    answers: {
+      a: "Functions",
+      b: "Arrays",
+      c: "Dates",
+      d: "All of the above",
+    },
+    correctAnswer: "optionD",
+  },
+  {
+    question: "What is the html tag for writing Javascript?",
+    answers: {
+      a: "<javascript>",
+      b: "<script>",
+      c: "<js>",
+      d: "<scripted>",
+    },
+    correctAnswer: "optionB",
+  },
+  {
+    question: "How do you change the text of: <p id='demo'>This is a demonstration.</p> ?",
+    answers: {
+      a: "document.getElementById('demo').innerHTML = 'Hello World!';",
+      b: "document.getElement('p').innerHTML = 'Hello World!';",
+      c: "document.getElementName('p').innerHTML = 'Hello World!';",
+      d: "#demo.innerHTML = 'Hello World!';",
+    },
+    correctAnswer: "optionA",
+  },
+  {
+    question: "What HTML attribute do you use to reference an external javascript file?",
+    answers: {
+      a: "name",
+      b: "type",
+      c: "href",
+      d: "src",
+    },
+    correctAnswer: "optionD",
+  },
+];
+// gamefield queries that allow for easy removal and creation of new content in the container
 let gameField = document.querySelector("#game-field");
 let timerValue = document.querySelector("#timer-value");
 // initial state html elements
 const gameButton = document.querySelector(".startBtn")
 let timerText = document.createElement("span");
 
-// initial score state
+// initial score state made it global so that it would be easier to manipulate
 let totalScore = 0;
 
 // used for both the gamequestions and gametimer functions
@@ -19,21 +72,23 @@ timerText.setAttribute("class", "timer-text");
 timerValue.appendChild(timerText);
 timerText.textContent = timerTime + " seconds left";
 
+// initial event connected to the start button
 gameButton.addEventListener("click", gameTimer);
 
 // function that starts the game timer and stops it when the timer reaches 0
 function gameTimer() {
-  timerTime = 40;
+  // set start time
+  timerTime = 75;
+  // run gameQuestions function to display first question
   gameQuestions();
-  // console.log(timerTime);
   timerInterval = setInterval(function () {
     timerTime--;
+    // if statement for if user cannot answer the questions in the required amount of time
     if (timerTime === 0) {
       clearInterval(timerInterval);
       gameEndScreen();
     }
     timerText.textContent = timerTime + " seconds left";
-    // console.log(timerTime);
   }, 1000);
 }
 
@@ -193,22 +248,22 @@ function storeHighScores() {
   localStorage.setItem("Highscores", JSON.stringify(highScoreListArrs));
 }
 
-// questionOptionList.addEventListener("click", answerHandler)
+// answerArr.addEventListener("click", answerHandler)
 
 // function answerHandler(event) {
 //   event.preventDefault();
 //   if (event.target.matches("button")) {
 //     if (i < myQuestions.length) {
-//       if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
+//       if (answerArr[i].getAttribute("option-answer") === myQuestions[i].correctAnswer) {
 //         console.log(myQuestions[i].correctAnswer);
-//         console.log(this.getAttribute("option-answer"));
+//         console.log(answerArr[i].getAttribute("option-answer"));
 //         console.log(true);
 //         i++;
 //         correctScore++
 //         gameQuestions();
 //       } else {
 //         console.log(myQuestions[i].correctAnswer);
-//         console.log(this.getAttribute("option-answer"));
+//         console.log(answerArr[i].getAttribute("option-answer"));
 //         console.log(false);
 //         i++;
 //         timerTime -= 10;
@@ -314,58 +369,7 @@ optionD.addEventListener("click", function () {
   }
 });
 
-const myQuestions = [
-  {
-    question: "question1 what is your answer?",
-    answers: {
-      a: "answer is not a",
-      b: "answer is totally not b",
-      c: "answer is obviously c",
-      d: "answer is not d clearly",
-    },
-    correctAnswer: "optionA",
-  },
-  {
-    question: "question2",
-    answers: {
-      a: "ans a",
-      b: "ans b",
-      c: "ans c",
-      d: "ans d",
-    },
-    correctAnswer: "optionA",
-  },
-  {
-    question: "question3",
-    answers: {
-      a: "ans a",
-      b: "ans b",
-      c: "ans c",
-      d: "ans d",
-    },
-    correctAnswer: "optionA",
-  },
-  {
-    question: "question4",
-    answers: {
-      a: "ans a",
-      b: "ans b",
-      c: "ans c",
-      d: "ans d",
-    },
-    correctAnswer: "optionA",
-  },
-  {
-    question: "question5",
-    answers: {
-      a: "ans a",
-      b: "ans b",
-      c: "ans c",
-      d: "ans d",
-    },
-    correctAnswer: "optionA",
-  },
-];
+
 
 let correctnessBool = false;
 let correctnessEl = document.querySelector("#correctness");
