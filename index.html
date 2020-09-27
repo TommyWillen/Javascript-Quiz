@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>JavaScript Quiz!</title>
+    <!-- used bootstrap library to format my page -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
+    <!-- stylesheet used to make personalized styling to the page -->
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
     <header>
-        <nav class="navbar-dark bg-dark">
+        <!-- created a nav bar for the highscore link, title and timer  -->
+      <nav class="navbar-dark bg-dark">
             <ul class="nav nav-fill">
                 <li class="nav-item active">
                     <a class="nav-link float-left active text-light" href="highscore.html">High Scores</a>
@@ -22,6 +25,7 @@
                 <li>
                     <a class="navbar-brand disabled" href="#">JavaScript Quiz!</a>
                 </li>
+                <!-- timer text and formatting created using script.js file -->
                 <li class="nav-item active" id="timer-value">
                     
                 </li>
@@ -31,13 +35,16 @@
     <main>
         <section class="container pt-5">
             <div class="row">
+              <!-- game field initial state that will be modified depending on eventlistners in the script.js file -->
                 <div class="col" id="game-field">
                   <h3>Welcome to Tommy Willen's JavaScript Quiz!</h3>
                   <p>Once you press start the timer will begin. You will have 75 seconds to answer as many questions as you can. Every correct answer will add 5 points to your score, while every wrong answer will deduct 10 seconds from the timer. The games ends once either you finish all questions or the timer runs out. Your score will be based on the number of correct answers and how long it took you to finish. You score will be added to the high scores page. You can play multiple times to try and beat your top score!. Good Luck!</p>
+                  <!-- start button used to start the game that is attached to an eventlistener in the script.js file -->
                   <button class="startBtn">Start!</button>
                 </div>
             </div>
             <div class="row">
+              <!-- correctness container that defaults to hide and will display the correct or incorrect message based on the script.js file -->
               <div class="col" id="correctness" style="display: none;">
                 <hr>
                 <h2 class="text-center" id="correctness-text"></h2>
@@ -46,7 +53,7 @@
         </section>
     </main>
 
-
+<!-- first 3 scripts are from the bootstrap library to ensure the page works properly -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -62,6 +69,7 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
+    <!-- script link to my script file that does all of the magic (not actually magic, but the blood sweat and tears of an exhausted coder!!!) -->
     <script src="./assets/script.js"></script>
   </body>
 </html>

@@ -1,10 +1,12 @@
+/* added personal styles to the html files to mute the colors and meet my own personal color scheme that I like to call "lumberjack chic" */
+/* changed rgb colors to hex for consistency and because rgb is for suckers */
 header nav {
     background-color: #22817d;
     width: 100%;
 }
 
 h3 {
-    color: rgb(96, 128, 38);
+    color: #618026;
     text-align: center;
 }
 
@@ -12,9 +14,10 @@ p {
     text-align: center;
 }
 
+/* button styles used to modify size and roundness of button */
 button {
-    background-color: rgb(96, 128, 38);
-    color: rgb(243, 236, 222);
+    background-color: #618026;
+    color: #f3ecde;
     border-radius: 10%;
     border-width: 0;
     padding: 5px 10px 5px 10px;
@@ -34,31 +37,33 @@ button {
     padding-right: 15px;
 }
 
+/* had to add this because bootstrap was adding bullets even though it shouldn't */
 ul {
     list-style-type: none !important;
 }
 
+/* changed hover animation to look better when hovered over */
 button:hover {
     background-color: #333a40;
-    color: rgb(243, 236, 222);
+    color: #f3ecde;
 }
 
 main {
     width: 100%;
-    background-color: rgb(211, 203, 187);
+    background-color: #d3cbbb;
     padding-bottom: 100%;
 }
 main section div {
-    background-color: rgb(243, 236, 222);
+    background-color: #f3ecde;
 }
 .section {
     padding-top: 60px;
     margin-top: -60px;
 }
-
+/* code for the link in highscore.html to look like a button */
 .button-like {
-    background-color: rgb(96, 128, 38);
-    color: rgb(243, 236, 222);
+    background-color: #618026;
+    color: #f3ecde;
     border-radius: 10%;
     border-width: 0;
     padding: 5px 10px 5px 10px;
@@ -66,11 +71,11 @@ main section div {
 }
 
 .button-like:hover {
-    color: rgb(243, 236, 222);
+    color: #f3ecde;
     background-color: #333a40;
 }
 
 ol {
-    color: rgb(96, 128, 38);
+    color: #618026;
     font-weight: bold;
 }

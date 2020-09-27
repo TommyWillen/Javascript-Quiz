@@ -4,15 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+        <!-- used bootstrap library to format my page -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
+    <!-- used same stylesheet as the index.html file -->
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
+      <!-- same header used including the timer container that is blank to make formatting easier -->
     <header>
         <nav class="navbar-dark bg-dark">
             <ul class="nav nav-fill">
@@ -28,6 +31,7 @@
             </ul>
           </nav>
     </header>
+    <!-- initial state of the highscores file only the highscore list is created using the .js file -->
     <main>
       <section class="container pt-5">
         <div class="row">
@@ -38,6 +42,7 @@
         <div class="row">
             <div class="col-4"></div>
             <div class="col-8">
+                <!-- ordered list that populates the highscore list using the highscorescript.js file -->
                 <ol id="highscore-list"></ol>
             </div>
         </div>
@@ -45,9 +50,11 @@
               <div class="col">
             <ul class="nav nav-fill">
                 <li class="nav-item">
+                    <!-- used and styled the link to look like a button because it is easier to make than having to use js -->
                     <a href="./index.html" class="btn button-like">Go Back</a>
                 </li>
                 <li class="nav-item">
+                    <!-- clear button used to clear the ordered list of highscores and remove the stored information in local storage -->
               <button id="clear-button">Clear Highscores</button>
                 </li>
             </ul>
@@ -55,7 +62,7 @@
           </div>
       </section>
     </main>
-
+<!-- more bootstrap links -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -71,6 +78,7 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
+    <!-- used different .js file than index.html to make the code cleaner and easier to work with -->
     <script src="./assets/highscorescript.js"></script>
   </body>
 </html>
