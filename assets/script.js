@@ -232,152 +232,45 @@ initialsInput.value = "";
 window.location.href = "./highscore.html"
 })
 
+questionOptionList.addEventListener("click", answerHandler)
 
-// for (const answer of answerArr){
-//   answer.addEventListener("click", event => {
-//     event.preventDefault();
-//     console.log(answerArr);
-//       if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
-//         console.log(myQuestions[i].correctAnswer);
-//         console.log(this.getAttribute("option-answer"));
-//         console.log(true);
-//         i++;
-//         correctScore++
-//         gameQuestions();
-//       } else {
-//         console.log(myQuestions[i].correctAnswer);
-//         console.log(this.getAttribute("option-answer"));
-//         console.log(false);
-//         i++;
-//         timerTime -= 10;
-//         gameQuestions();
-//       }
-//   })
-// }
-// answerArr.addEventListener("click", answerHandler)
-
-// function answerHandler(event) {
-//   event.preventDefault();
-//   if (event.target.matches("button")) {
-//     if (i < myQuestions.length) {
-//       if (answerArr[i].getAttribute("option-answer") === myQuestions[i].correctAnswer) {
-//         console.log(myQuestions[i].correctAnswer);
-//         console.log(answerArr[i].getAttribute("option-answer"));
-//         console.log(true);
-//         i++;
-//         correctScore++
-//         gameQuestions();
-//       } else {
-//         console.log(myQuestions[i].correctAnswer);
-//         console.log(answerArr[i].getAttribute("option-answer"));
-//         console.log(false);
-//         i++;
-//         timerTime -= 10;
-//         gameQuestions();
-//       }
-//   }
-//   }
-// }
-
-// event handlers for the different buttons for the questions. will try to compress this into one handler if I can figure out how.
-optionA.addEventListener("click", function () {
-    // checks to see if the attribute value is the same and the correct answer. Used to check if the answer is correct 
-  if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
-      // console.log(myQuestions[i].correctAnswer);
-      // console.log(this.getAttribute("option-answer"));
-      // console.log(true);
-      // adds on to the i variable so that the questions will move to the next question
-      i++;
-      // gives a point for correct answer
-      correctScore++;
-      // used for the correctNotification function to display correct
-      correctnessBool = true;
-      // runs correct notification
-      correctNotification();
-      // runs next question (or endscreen if no more questions)
-      gameQuestions();
-    } else {
-      // console.log(myQuestions[i].correctAnswer);
-      // console.log(this.getAttribute("option-answer"));
-      // console.log(false);
-      // moves to next question
-      i++;
-      // removes 10 seconds from timmer as penalty
-      timerTime -= 10;
-      // used for correctNotification function to display incorrect
-      correctnessBool = false;
-      // runs incorrect notification
-      correctNotification();
-      // runs next question (or endscreen if no more questions)
-      gameQuestions();
-    }
-});
-// same as option a. again I will try to clean this up later.
-optionB.addEventListener("click", function () {
-    if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(true);
-      i++;
-      correctScore++;
-      correctnessBool = true;
-      correctNotification();
-      gameQuestions();
-    } else {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(false);
-      i++;
-      timerTime -= 10;
-      correctnessBool = false
-      correctNotification();
-      gameQuestions();
-    }
-});
-// same as option a. again I will try to clean this up later.
-optionC.addEventListener("click", function () {
-    if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(true);
-      i++;
-      correctScore++;
-      correctnessBool = true;
-      correctNotification();
-      gameQuestions();
-    } else {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(false);
-      i++;
-      timerTime -= 10;
-      correctnessBool = false;
-      correctNotification();
-      gameQuestions();
-    }
-});
-// same as option a. again I will try to clean this up later.
-optionD.addEventListener("click", function () {
-    if (this.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(true);
-      i++;
-      correctScore++;
-      correctnessBool = true;
-      correctNotification();
-      gameQuestions();
-    } else {
-      console.log(myQuestions[i].correctAnswer);
-      console.log(this.getAttribute("option-answer"));
-      console.log(false);
-      i++;
-      timerTime -= 10;
-      correctnessBool = false;
-      correctNotification();
-      gameQuestions();
-    }
-});
+function answerHandler(event) {
+  event.preventDefault();
+  // checks to see if the target is a button
+  if (event.target.matches("button")) {
+    // console.log(event.target);
+    // compares to see of the button pressed matches the correct answer
+      if (event.target.getAttribute("option-answer") === myQuestions[i].correctAnswer) {
+        // console.log(myQuestions[i].correctAnswer);
+        // console.log(event.target.getAttribute("option-answer"));
+        // console.log(true);
+        // moves to the next question
+        i++;
+        // gives additional points for correct answer
+        correctScore++
+        // sets the correctnessBool boolean to true for the correctNotification function to use
+        correctnessBool = true;
+        // runs the correctNotification function to display correct below
+        correctNotification();
+        // runs the gameQuestion function again to play the next question or end screen
+        gameQuestions();
+      } else {
+        // console.log(myQuestions[i].correctAnswer);
+        // console.log(event.target.getAttribute("option-answer"));
+        // console.log(false);
+        // moves to next question
+        i++;
+        // removes ten seconds from the timer
+        timerTime -= 10;
+        // sets the correctnessBool boolean to false for the correctNotification function to use
+        correctnessBool = false;
+        // runs the correctNotification function to display incorrect below
+        correctNotification();
+        // runs the gameQuestion function again to play the next question or end screen
+        gameQuestions();
+      }
+  }
+}
 
 
 // sets initial state of the correct notification to default as incorrect

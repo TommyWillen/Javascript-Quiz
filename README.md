@@ -105,7 +105,7 @@ clone git@github.com:TommyWillen/Javascript-Quiz.git
 
 ## Roadmap
 
-In the future I plan to incorporate jquery to shrink my code. I also hope to create an eventlistner that reads all of the question buttons instead of having 4.
+In the future I plan to incorporate jquery to shrink my code.
 
 ## License
 
